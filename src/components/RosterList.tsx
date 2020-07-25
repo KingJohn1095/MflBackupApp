@@ -32,6 +32,7 @@ export const RosterList = () => {
 	}, []);
 	return (
 		<>
+			<div>My Code Updated</div>
 			{players.map((p) => (
 				<div>{p.status}</div>
 			))}
