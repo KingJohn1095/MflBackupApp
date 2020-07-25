@@ -29,7 +29,7 @@ export const RosterList = () => {
 				setPlayers(json.rosters.map((r) => r.player));
 			})
 			.catch((r) => console.log(`error ${r}`));
-	});
+	}, []);
 	return (
 		<>
 			{players.map((p) => (
