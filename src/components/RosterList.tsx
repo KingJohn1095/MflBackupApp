@@ -27,7 +27,8 @@ export const RosterList = () => {
 			})
 			.then((json: RostersResponse) => {
 				setPlayers(json.rosters.map((r) => r.player));
-			});
+			})
+			.catch((r) => console.log(`error ${r}`));
 	});
 	return (
 		<>
