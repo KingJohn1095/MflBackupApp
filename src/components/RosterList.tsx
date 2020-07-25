@@ -22,11 +22,8 @@ export const RosterList = () => {
 		fetch(
 			"https://www76.myfantasyleague.com/2020/export?TYPE=rosters&L=14228&APIKEY=aR1s3cGUvuWvx0WmPlzAaTAeFbox&FRANCHISE=0001&W=&JSON=1"
 		)
-			.then((r) => {
-				if (r.status == 200) {
-					return r.json();
-				}
-				return {};
+			.then((response) => {
+				return response.json();
 			})
 			.then((json: RostersResponse) => {
 				setPlayers(json.rosters.map((r) => r.player));
