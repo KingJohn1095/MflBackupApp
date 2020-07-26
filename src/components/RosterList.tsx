@@ -7,6 +7,9 @@ import { getMflPlayerPhoto } from "../functions/getMflPlayerPhoto";
 import { MflApi } from "api/mflApi";
 import { PlayerInfo } from "interfaces/PlayerInfo";
 import { PlayerStatus } from "interfaces/PlayerStatus";
+import * as Material from "@material-ui/core";
+import { Position } from "enums/position";
+import { Status } from "enums/status";
 
 const displayPlayerInfo = (player: PlayerInfo) => (
 	<>
@@ -21,16 +24,22 @@ export const RosterList = () => {
 	const [players, setPlayers] = React.useState<Player[]>([]);
 	const [playerInfo, setPlayerInfo] = React.useState<PlayerInfo[]>([]);
 	const [playerStatus, setPlayerStatus] = React.useState<PlayerStatus[]>([]);
+	const [
+		selectedPosition,
+		setSelectedPosition,
+	] = React.useState<Position | null>(null);
 	const mflApi = new MflApi("https://www76.myfantasyleague.com/2020");
 
 	let benchPlayerInfo = React.useMemo(
 		() =>
-			playerInfo.filter((p) =>
-				playerStatus.some(
-					(ps) => ps.id === p.id && ps.roster_franchise?.status === "NS"
-				)
+			playerInfo.filter(
+				(p) =>
+					playerStatus.some(
+						(ps) =>
+							ps.id === p.id && ps.roster_franchise?.status === Status.bench
+					) && p.position === selectedPosition
 			),
-		[playerInfo, playerStatus]
+		[playerInfo, playerStatus, selectedPosition]
 	);
 	React.useEffect(() => {
 		const fetchData = async () => {
@@ -77,6 +86,14 @@ export const RosterList = () => {
 	return (
 		<>
 			<div>Select Backups</div>
+			<Material.NativeSelect
+				onChange={(e) => setSelectedPosition(e.target.value as Position)}
+				value={selectedPosition}
+			>
+				<option value={Position.quarterBack}>Quarter Back</option>
+				<option value={Position.wideReceiver}>Receiver/Tight End</option>
+				<option value={Position.runningBack}>Running Back</option>
+			</Material.NativeSelect>
 			<SortableList
 				items={benchPlayerInfo}
 				keyMethod={(p) => `${p.id}`}

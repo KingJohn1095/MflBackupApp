@@ -1,6 +1,7 @@
 // player status for a roster and franchise
 
 import { Player } from "./Player";
+import { Status } from "enums/status";
 
 export interface Franchise {
 	week: number;
@@ -10,5 +11,5 @@ export interface Franchise {
 
 export interface RosterFranchise {
 	franchiseId: number;
-	status: "R" | "S" | "NS" | "IR" | "TS";
+	status: Status;
 }
