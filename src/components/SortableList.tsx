@@ -18,9 +18,8 @@ export const SortableList = <T extends unknown>({
 }: SortableListProps<T>) => {
 	const [internalItems, setInternalItems] = React.useState<T[]>([]);
 	React.useEffect(() => {
-		setInternalItems(items);
+		setInternalItems([...items]);
 	}, [items]);
-	const [dragging, setDragging] = React.useState<boolean>(false);
 
 	const onDrop = (props: Drag.DropResult) => {
 		let { removedIndex, addedIndex } = props;
