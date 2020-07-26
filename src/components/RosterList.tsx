@@ -24,9 +24,10 @@ export const RosterList = () => {
 	const [players, setPlayers] = React.useState<Player[]>([]);
 	const [playerInfo, setPlayerInfo] = React.useState<PlayerInfo[]>([]);
 	const [playerStatus, setPlayerStatus] = React.useState<PlayerStatus[]>([]);
-	const [selectedPosition, setSelectedPosition] = React.useState<
-		Position | undefined
-	>(undefined);
+	const [
+		selectedPosition,
+		setSelectedPosition,
+	] = React.useState<Position | null>(null);
 	const mflApi = new MflApi("https://www76.myfantasyleague.com/2020");
 
 	let benchPlayerInfo = React.useMemo(
@@ -37,7 +38,7 @@ export const RosterList = () => {
 						(ps) =>
 							ps.id === p.id && ps.roster_franchise?.status === Status.bench
 					) &&
-					(!selectedPosition || p.position === selectedPosition)
+					(selectedPosition === null || p.position === selectedPosition)
 			),
 		[playerInfo, playerStatus, selectedPosition]
 	);
@@ -89,10 +90,14 @@ export const RosterList = () => {
 		<>
 			<div>Select Backups</div>
 			<Material.NativeSelect
-				onChange={(e) => setSelectedPosition(e.target.value as Position)}
+				onChange={(e) =>
+					setSelectedPosition(
+						e.target.value === "" ? null : (e.target.value as Position)
+					)
+				}
 				value={selectedPosition}
 			>
-				<option value={undefined}>None</option>
+				<option value={""}>None</option>
 				<option value={Position.quarterBack}>Quarter Back</option>
 				<option value={Position.wideReceiver}>Receiver/Tight End</option>
 				<option value={Position.runningBack}>Running Back</option>
