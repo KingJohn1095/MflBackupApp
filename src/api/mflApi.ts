@@ -1,6 +1,7 @@
 import { RostersResponse } from "interfaces/RostersResponse";
 import { PlayerResponse } from "interfaces/PlayerResponse";
 import { BaseApi } from "./baseApi";
+import { PlayerRosterResponse } from "interfaces/PlayerRosterResponse";
 
 export class MflApi extends BaseApi {
 	constructor(baseUri: string) {
@@ -24,6 +25,17 @@ export class MflApi extends BaseApi {
 			`export?TYPE=players&L=14228&APIKEY=&DETAILS=&SINCE=&PLAYERS=${encodeURI(
 				playerString
 			)}&JSON=1`
+		);
+	};
+	public getPlayerRosterStatus = (playerIds: number[]) => {
+		var playerString = playerIds
+			.map((i) => i.toString().padStart(4, "0"))
+			.join(",");
+		return this.genericRequest<PlayerRosterResponse>(
+			"GET",
+			`export?TYPE=playerRosterStatus&L=14228&APIKEY=&P=${encodeURI(
+				playerString
+			)}&W=&F=&JSON=1`
 		);
 	};
 }

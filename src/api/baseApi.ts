@@ -28,20 +28,22 @@ export class BaseApi {
 				Accept: "application/json",
 				"Content-Type": "application/json",
 			},
-		}).then(async (response) => {
-			if (response.status === 200) {
-				var body = (await response.json()) as T;
-				return {
-					status: response.status,
-					message: response.statusText,
-					body: body,
-				} as ApiResponse<T>;
-			} else {
-				return {
-					status: response.status,
-					message: response.statusText,
-				} as ApiResponse<T>;
-			}
-		});
+		})
+			.then(async (response) => {
+				if (response.status === 200) {
+					var body = (await response.json()) as T;
+					return {
+						status: response.status,
+						message: response.statusText,
+						body: body,
+					} as ApiResponse<T>;
+				} else {
+					return {
+						status: response.status,
+						message: response.statusText,
+					} as ApiResponse<T>;
+				}
+			})
+			.catch((r) => ({ status: 500, message: `Unkown error occured: ${r}` }));
 	};
 }
