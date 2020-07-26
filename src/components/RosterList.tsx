@@ -32,9 +32,11 @@ export const RosterList = () => {
 				}
 			}
 			console.log(players.map((p) => p.id));
-			let playersResponse = await mflApi.getPlayers(players.map((p) => p.id));
-			if (playersResponse.status === 200) {
-				setPlayerInfo(getSingleArray(playersResponse.body.players.player));
+			if (players.length) {
+				let playersResponse = await mflApi.getPlayers(players.map((p) => p.id));
+				if (playersResponse.status === 200) {
+					setPlayerInfo(getSingleArray(playersResponse.body.players.player));
+				}
 			}
 		};
 		fetchData();
