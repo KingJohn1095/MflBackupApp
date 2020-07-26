@@ -1,15 +1,16 @@
 import * as React from "react";
 import { Player } from "../interfaces/Player";
 import { RosterFranchise } from "../interfaces/RosterFranchise";
+import { getSingleArray } from "../functions/getSingleArray";
 
 interface Franchise {
 	week: number;
-	player: Player;
+	player: Player[] | Player;
 	id: number;
 }
 
 interface RostersResponse {
-	rosters: Franchise[];
+	franchise: Franchise | Franchise[];
 }
 
 export const RosterList = () => {
@@ -31,7 +32,11 @@ export const RosterList = () => {
 		)
 			.then((response) => response.json())
 			.then((json: RostersResponse) => {
-				setPlayers(json.rosters.map((r) => r.player));
+				var franchises = getSingleArray(json.franchise);
+				if (franchises.length) {
+					var currentFranchise = franchises[0];
+					setPlayers(getSingleArray(currentFranchise.player));
+				}
 			})
 			.catch((r) => console.log(`error ${r}`));
 	}, []);
