@@ -30,33 +30,28 @@ export const SortableList = <T extends unknown>({
 		onDropCallback && onDropCallback(props);
 	};
 
-	const onDragStart = (props: Drag.DragStartParams) => {
-		setDragging(true);
-	};
-	const onDragEnd = (props: Drag.DragEndParams) => {
-		setDragging(false);
-	};
-
 	return (
-		<Material.List>
-			<Drag.Container
-				// dragHandleSelector=".drag-handle"
-				lockAxis="y"
-				onDrop={onDrop}
-				onDragStart={onDragStart}
-				onDragEnd={onDragEnd}
-			>
-				{internalItems.map((item, index) => (
-					<Drag.Draggable key={keyMethod(item)}>
-						<Material.ListItem>
-							{!dragging && (
-								<Material.ListItemText>{index}</Material.ListItemText>
-							)}
-							{displayMethod(item)}
-						</Material.ListItem>
-					</Drag.Draggable>
+		<Material.Box display="flex" flexDirection="row">
+			<Material.List style={{ height: "100px" }}>
+				{internalItems.map((_, index) => (
+					<Material.ListItem>{index}</Material.ListItem>
 				))}
-			</Drag.Container>
-		</Material.List>
+			</Material.List>
+			<Material.List>
+				<Drag.Container
+					// dragHandleSelector=".drag-handle"
+					lockAxis="y"
+					onDrop={onDrop}
+				>
+					{internalItems.map((item, index) => (
+						<Drag.Draggable key={keyMethod(item)}>
+							<Material.ListItem style={{ height: "100px" }}>
+								{displayMethod(item)}
+							</Material.ListItem>
+						</Drag.Draggable>
+					))}
+				</Drag.Container>
+			</Material.List>
+		</Material.Box>
 	);
 };
