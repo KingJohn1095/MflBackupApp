@@ -20,6 +20,7 @@ export const SortableList = <T extends unknown>({
 	React.useEffect(() => {
 		setInternalItems(items);
 	}, [items]);
+	const [dragging, setDragging] = React.useState<boolean>(false);
 
 	const onDrop = (props: Drag.DropResult) => {
 		let { removedIndex, addedIndex } = props;
@@ -29,16 +30,30 @@ export const SortableList = <T extends unknown>({
 		onDropCallback && onDropCallback(props);
 	};
 
+	const onDragStart = (props: Drag.DragStartParams) => {
+		setDragging(true);
+	};
+	const onDragEnd = (props: Drag.DragEndParams) => {
+		setDragging(false);
+	};
+
 	return (
 		<Material.List>
 			<Drag.Container
 				// dragHandleSelector=".drag-handle"
 				lockAxis="y"
 				onDrop={onDrop}
+				onDragStart={onDragStart}
+				onDragEnd={onDragEnd}
 			>
-				{internalItems.map((item) => (
+				{internalItems.map((item, index) => (
 					<Drag.Draggable key={keyMethod(item)}>
-						<Material.ListItem>{displayMethod(item)}</Material.ListItem>
+						<Material.ListItem>
+							{!dragging && (
+								<Material.ListItemText>{index}</Material.ListItemText>
+							)}
+							{displayMethod(item)}
+						</Material.ListItem>
 					</Drag.Draggable>
 				))}
 			</Drag.Container>
