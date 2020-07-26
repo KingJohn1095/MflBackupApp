@@ -1,37 +1,27 @@
-export interface DataResponse<T> {
-	status: number;
-	body: T;
-	message: string;
-}
+import { BaseApi } from "./baseApi";
+import { RostersResponse } from "interfaces/RostersResponse";
+import { PlayerResponse } from "interfaces/Player";
 
-export interface NoDataResponse {
-	status: 204 | 500;
-	message: string;
-}
-
-export type ApiResponse<T> = DataResponse<T> & NoDataResponse;
-
-class MflApi {
-	baseUrl: string;
-
-	constructor(baseUrl: string) {
-		this.baseUrl = baseUrl;
+export class MflApi extends BaseApi {
+	constructor(baseUri: string) {
+		super(baseUri);
 	}
 
-	genericRequest = async <T>(method: "GET" | "POST", uri: string) => {
-		var response: ApiResponse<T> = await fetch(`${this.baseUrl}/${uri}`, {
-			method: method,
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-		}).then((response) =>
-			response.status === 200
-				? response.json()
-				: ({
-						status: response.status,
-						message: response.statusText,
-				  } as NoDataResponse)
+	public getRosters = (franchiseId: number) =>
+		this.genericRequest<RostersResponse>(
+			"GET",
+			`export?TYPE=rosters&L=14228&APIKEY=&FRANCHISE=0001&W=&JSON=1`
+		);
+
+	public getPlayers = (playerIds: number[]) => {
+		var playerString = playerIds
+			.map((i) => i.toString().padStart(4, "0"))
+			.join(",");
+		return this.genericRequest<PlayerResponse>(
+			"GET",
+			`export?TYPE=players&L=14228&APIKEY=&DETAILS=&SINCE=&PLAYERS=${encodeURI(
+				playerString
+			)}&JSON=1`
 		);
 	};
 }
