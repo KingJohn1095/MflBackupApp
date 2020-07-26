@@ -1,11 +1,10 @@
 import * as React from "react";
 import { Player } from "../interfaces/Player";
-// import { RosterFranchise } from "../interfaces/RosterFranchise";
 import { getSingleArray } from "../functions/getSingleArray";
 import { SortableList } from "./SortableList";
 import { ListItemAvatar, Avatar } from "@material-ui/core";
 import { getMflPlayerPhoto } from "../functions/getMflPlayerPhoto";
-import { MflApi } from "../api/MflApi";
+import { MflApi } from "api/MflApi";
 
 const displayPlayerInto = (player: Player) => (
 	<ListItemAvatar>
