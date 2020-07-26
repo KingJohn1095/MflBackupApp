@@ -2,41 +2,49 @@ import * as React from "react";
 import { Player } from "../interfaces/Player";
 import { getSingleArray } from "../functions/getSingleArray";
 import { SortableList } from "./SortableList";
-import { ListItemAvatar, Avatar } from "@material-ui/core";
+import { ListItemAvatar, Avatar, ListItemText } from "@material-ui/core";
 import { getMflPlayerPhoto } from "../functions/getMflPlayerPhoto";
 import { MflApi } from "api/mflApi";
+import { PlayerInfo } from "interfaces/PlayerInfo";
 
-const displayPlayerInto = (player: Player) => (
+const displayPlayerInfo = (player: PlayerInfo) => (
 	<ListItemAvatar>
 		<Avatar alt={`${player.id}`} src={getMflPlayerPhoto(player.id)} />
+		<ListItemText>{player.name} </ListItemText>
 	</ListItemAvatar>
 );
 
 export const RosterList = () => {
 	const [players, setPlayers] = React.useState<Player[]>([]);
+	const [playerInfo, setPlayerInfo] = React.useState<PlayerInfo[]>([]);
 	const mflApi = new MflApi("https://www76.myfantasyleague.com/2020");
 
 	React.useEffect(() => {
-		mflApi
-			.getRosters(1)
-			.then((r) => {
-				if (r.status === 200) {
-					var franchises = getSingleArray(r.body.rosters.franchise);
-					if (franchises.length) {
-						var currentFranchise = franchises[0];
-						setPlayers(getSingleArray(currentFranchise.player));
-					}
+		const fetchData = async () => {
+			let rosterResponse = await mflApi.getRosters(1);
+			if (rosterResponse.status === 200) {
+				var franchises = getSingleArray(rosterResponse.body.rosters.franchise);
+				if (franchises.length) {
+					var currentFranchise = franchises[0];
+					setPlayers(getSingleArray(currentFranchise.player));
 				}
-			})
-			.catch((r) => console.log(`error ${r}`));
+			}
+
+			let playersResponse = await mflApi.getPlayers(players.map((p) => p.id));
+			if (playersResponse.status === 200) {
+				setPlayerInfo(getSingleArray(playersResponse.body.players.player));
+			}
+		};
+		fetchData();
 	}, []);
+
 	return (
 		<>
 			<div>My Code Updated</div>
 			<SortableList
-				items={players}
+				items={playerInfo}
 				keyMethod={(p) => `${p.id}`}
-				displayMethod={displayPlayerInto}
+				displayMethod={displayPlayerInfo}
 			/>
 		</>
 	);

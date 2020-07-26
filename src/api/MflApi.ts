@@ -1,5 +1,5 @@
 import { RostersResponse } from "interfaces/RostersResponse";
-import { PlayerResponse } from "interfaces/Player";
+import { PlayerResponse } from "interfaces/PlayerResponse";
 import { BaseApi } from "./baseApi";
 
 export class MflApi extends BaseApi {
