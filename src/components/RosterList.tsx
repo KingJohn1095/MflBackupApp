@@ -56,8 +56,8 @@ export const RosterList = () => {
 			<div>My Code Updated</div>
 			<SortableList
 				items={players}
-				keyMethod={displayPlayerInto}
-				displayMethod={(p) => `${p.id}`}
+				keyMethod={(p) => `${p.id}`}
+				displayMethod={displayPlayerInto}
 			/>
 		</>
 	);
