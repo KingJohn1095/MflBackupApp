@@ -32,9 +32,11 @@ export const SortableList = <T extends unknown>({
 
 	return (
 		<Material.Box display="flex" flexDirection="row">
-			<Material.List style={{ height: "100px" }}>
+			<Material.List>
 				{internalItems.map((_, index) => (
-					<Material.ListItem>{index}</Material.ListItem>
+					<Material.ListItem style={{ height: "60px" }}>
+						{index}
+					</Material.ListItem>
 				))}
 			</Material.List>
 			<Material.List>
@@ -45,7 +47,7 @@ export const SortableList = <T extends unknown>({
 				>
 					{internalItems.map((item, index) => (
 						<Drag.Draggable key={keyMethod(item)}>
-							<Material.ListItem style={{ height: "100px" }}>
+							<Material.ListItem style={{ height: "60px" }}>
 								{displayMethod(item)}
 							</Material.ListItem>
 						</Drag.Draggable>
