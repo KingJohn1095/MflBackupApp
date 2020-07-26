@@ -10,7 +10,9 @@ export class MflApi extends BaseApi {
 	public getRosters = (franchiseId: number) =>
 		this.genericRequest<RostersResponse>(
 			"GET",
-			`export?TYPE=rosters&L=14228&APIKEY=&FRANCHISE=0001&W=&JSON=1`
+			`export?TYPE=rosters&L=14228&APIKEY=&FRANCHISE=${franchiseId
+				.toString()
+				.padStart(4, "0")}&W=&JSON=1`
 		);
 
 	public getPlayers = (playerIds: number[]) => {
