@@ -10,8 +10,25 @@ interface Franchise {
 }
 
 interface RostersResponse {
-	franchise: Franchise | Franchise[];
+	rosters: { franchise: Franchise };
+	version: number;
+	encoding: string;
 }
+
+const object: RostersResponse = {
+	rosters: {
+		franchise: {
+			week: 1,
+			player: [
+				{ status: "ROSTER", id: 1, drafted: "FCFS (2019)" },
+				{ status: "ROSTER", id: 1, drafted: "" },
+			],
+			id: 1,
+		},
+	},
+	version: 1.0,
+	encoding: "utf-8",
+};
 
 export const RosterList = () => {
 	const [players, setPlayers] = React.useState<Player[]>([]);
@@ -32,7 +49,7 @@ export const RosterList = () => {
 		)
 			.then((response) => response.json())
 			.then((json: RostersResponse) => {
-				var franchises = getSingleArray(json.franchise);
+				var franchises = getSingleArray(json.rosters.franchise);
 				if (franchises.length) {
 					var currentFranchise = franchises[0];
 					setPlayers(getSingleArray(currentFranchise.player));
