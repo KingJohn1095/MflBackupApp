@@ -95,7 +95,7 @@ export const RosterList = () => {
 						e.target.value === "" ? null : (e.target.value as Position)
 					)
 				}
-				value={selectedPosition}
+				value={selectedPosition ?? ""}
 			>
 				<option value={""}>None</option>
 				<option value={Position.quarterBack}>Quarter Back</option>
