@@ -31,7 +31,12 @@ export const RosterList = () => {
 					setPlayers(getSingleArray(currentFranchise.player));
 				}
 			}
-			console.log(players.map((p) => p.id));
+		};
+		fetchData();
+	}, []);
+
+	React.useEffect(() => {
+		const fetchData = async () => {
 			if (players.length) {
 				let playersResponse = await mflApi.getPlayers(players.map((p) => p.id));
 				if (playersResponse.status === 200) {
@@ -40,7 +45,7 @@ export const RosterList = () => {
 			}
 		};
 		fetchData();
-	}, []);
+	}, [players]);
 
 	return (
 		<>
