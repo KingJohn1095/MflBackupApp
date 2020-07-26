@@ -33,10 +33,12 @@
 		"@babel/preset-typescript": "^7.10.4",
 		"@material-ui/core": "^4.11.0",
 		"array-move": "^3.0.0",
+		"core-js": "^3.6.5",
 		"html-webpack-root-plugin": "^0.10.0",
 		"lodash": "^4.17.19",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
-		"react-smooth-dnd": "^0.11.1"
+		"react-smooth-dnd": "^0.11.1",
+		"regenerator-runtime": "^0.13.7"
 	}
 }
