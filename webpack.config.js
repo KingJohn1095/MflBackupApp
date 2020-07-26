@@ -7,6 +7,7 @@ module.exports = {
 	devServer: {
 		contentBase: "./dist",
 	},
+	mode: "development",
 	plugins: [
 		new CleanWebpackPlugin(),
 		new HtmlWebpackPlugin({
