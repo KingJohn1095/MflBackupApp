@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"lib": ["es6", "dom"],
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"module": "commonjs",
+		"noEmit": true,
+		"sourceMap": true,
+		"moduleResolution": "node"
+	}
+}

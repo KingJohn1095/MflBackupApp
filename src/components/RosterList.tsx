@@ -1,7 +1,8 @@
 import * as React from "react";
 import { Player } from "../interfaces/Player";
-import { RosterFranchise } from "../interfaces/RosterFranchise";
+// import { RosterFranchise } from "../interfaces/RosterFranchise";
 import { getSingleArray } from "../functions/getSingleArray";
+import { SortableList } from "./SortableList";
 
 interface Franchise {
 	week: number;
@@ -15,26 +16,11 @@ interface RostersResponse {
 	encoding: string;
 }
 
-const object: RostersResponse = {
-	rosters: {
-		franchise: {
-			week: 1,
-			player: [
-				{ status: "ROSTER", id: 1, drafted: "FCFS (2019)" },
-				{ status: "ROSTER", id: 1, drafted: "" },
-			],
-			id: 1,
-		},
-	},
-	version: 1.0,
-	encoding: "utf-8",
-};
-
 export const RosterList = () => {
 	const [players, setPlayers] = React.useState<Player[]>([]);
-	const [rosterFranchise, setRosterFranchise] = React.useState<
-		RosterFranchise[]
-	>([]);
+	// const [rosterFranchise, setRosterFranchise] = React.useState<
+	// 	RosterFranchise[]
+	// >([]);
 
 	React.useEffect(() => {
 		fetch(
@@ -60,9 +46,11 @@ export const RosterList = () => {
 	return (
 		<>
 			<div>My Code Updated</div>
-			{players.map((p) => (
-				<div>{p.status}</div>
-			))}
+			<SortableList
+				items={players}
+				keyMethod={(p) => p.id}
+				displayMethod={(p) => `${p.id}`}
+			/>
 		</>
 	);
 };
