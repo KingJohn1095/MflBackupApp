@@ -38,9 +38,7 @@ export const SortableList = <T extends unknown>({
 			>
 				{internalItems.map((item) => (
 					<Drag.Draggable key={keyMethod(item)}>
-						<Material.ListItem>
-							<Material.Typography>{displayMethod(item)}</Material.Typography>
-						</Material.ListItem>
+						<Material.ListItem>{displayMethod(item)}</Material.ListItem>
 					</Drag.Draggable>
 				))}
 			</Drag.Container>
