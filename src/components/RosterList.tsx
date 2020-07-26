@@ -37,8 +37,7 @@ export const RosterList = () => {
 					playerStatus.some(
 						(ps) =>
 							ps.id === p.id && ps.roster_franchise?.status === Status.bench
-					) &&
-					(selectedPosition === null || p.position === selectedPosition)
+					) && p.position === selectedPosition
 			),
 		[playerInfo, playerStatus, selectedPosition]
 	);
