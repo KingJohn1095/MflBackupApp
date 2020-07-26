@@ -24,10 +24,9 @@ export const RosterList = () => {
 	const [players, setPlayers] = React.useState<Player[]>([]);
 	const [playerInfo, setPlayerInfo] = React.useState<PlayerInfo[]>([]);
 	const [playerStatus, setPlayerStatus] = React.useState<PlayerStatus[]>([]);
-	const [
-		selectedPosition,
-		setSelectedPosition,
-	] = React.useState<Position | null>(null);
+	const [selectedPosition, setSelectedPosition] = React.useState<
+		Position | undefined
+	>(undefined);
 	const mflApi = new MflApi("https://www76.myfantasyleague.com/2020");
 
 	let benchPlayerInfo = React.useMemo(
@@ -37,7 +36,8 @@ export const RosterList = () => {
 					playerStatus.some(
 						(ps) =>
 							ps.id === p.id && ps.roster_franchise?.status === Status.bench
-					) && p.position === selectedPosition
+					) &&
+					(!selectedPosition || p.position === selectedPosition)
 			),
 		[playerInfo, playerStatus, selectedPosition]
 	);
@@ -63,7 +63,9 @@ export const RosterList = () => {
 				);
 				if (statusResponse.status === 200) {
 					setPlayerStatus(
-						getSingleArray(statusResponse.body.playerRosterStatus.playerStatus)
+						getSingleArray(
+							statusResponse.body.playerRosterStatuses.playerStatus
+						)
 					);
 				}
 			}
@@ -90,6 +92,7 @@ export const RosterList = () => {
 				onChange={(e) => setSelectedPosition(e.target.value as Position)}
 				value={selectedPosition}
 			>
+				<option value={undefined}>None</option>
 				<option value={Position.quarterBack}>Quarter Back</option>
 				<option value={Position.wideReceiver}>Receiver/Tight End</option>
 				<option value={Position.runningBack}>Running Back</option>
