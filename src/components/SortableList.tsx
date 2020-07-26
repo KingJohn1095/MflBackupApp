@@ -31,7 +31,7 @@ export const SortableList = <T extends unknown>({
 	};
 
 	return (
-		<Material.Box display="flex" flexDirection="row">
+		<Material.Box display="flex" flexDirection="row" p={2}>
 			<Material.List>
 				{internalItems.map((_, index) => (
 					<Material.ListItem style={{ height: "60px" }}>
