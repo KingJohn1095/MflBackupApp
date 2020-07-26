@@ -4,7 +4,7 @@ import { getSingleArray } from "../functions/getSingleArray";
 import { SortableList } from "./SortableList";
 import { ListItemAvatar, Avatar } from "@material-ui/core";
 import { getMflPlayerPhoto } from "../functions/getMflPlayerPhoto";
-import { MflApi } from "api/MflApi";
+import { MflApi } from "api/mflApi";
 
 const displayPlayerInto = (player: Player) => (
 	<ListItemAvatar>

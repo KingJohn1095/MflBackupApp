@@ -1,6 +1,6 @@
-import { BaseApi } from "./baseApi";
 import { RostersResponse } from "interfaces/RostersResponse";
 import { PlayerResponse } from "interfaces/Player";
+import { BaseApi } from "./baseApi";
 
 export class MflApi extends BaseApi {
 	constructor(baseUri: string) {
