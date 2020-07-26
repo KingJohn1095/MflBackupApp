@@ -9,8 +9,8 @@ import { PlayerInfo } from "interfaces/PlayerInfo";
 
 const displayPlayerInfo = (player: PlayerInfo) => (
 	<>
-		<ListItemAvatar>
-			<Avatar alt={`${player.id}`} src={getMflPlayerPhoto(player.id)} />
+		<ListItemAvatar style={{ justifyContent: "center" }}>
+			<Avatar alt="" src={getMflPlayerPhoto(player.id)} />
 		</ListItemAvatar>
 		<ListItemText>{player.name} </ListItemText>
 	</>
