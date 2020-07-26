@@ -3,6 +3,8 @@ import { Player } from "../interfaces/Player";
 // import { RosterFranchise } from "../interfaces/RosterFranchise";
 import { getSingleArray } from "../functions/getSingleArray";
 import { SortableList } from "./SortableList";
+import { ListItemAvatar, Avatar } from "@material-ui/core";
+import { getMflPlayerPhoto } from "../functions/getMflPlayerPhoto";
 
 interface Franchise {
 	week: number;
@@ -15,6 +17,12 @@ interface RostersResponse {
 	version: number;
 	encoding: string;
 }
+
+const displayPlayerInto = (player: Player) => (
+	<ListItemAvatar>
+		<Avatar alt={`${player.id}`} src={getMflPlayerPhoto(player.id)} />
+	</ListItemAvatar>
+);
 
 export const RosterList = () => {
 	const [players, setPlayers] = React.useState<Player[]>([]);
@@ -48,7 +56,7 @@ export const RosterList = () => {
 			<div>My Code Updated</div>
 			<SortableList
 				items={players}
-				keyMethod={(p) => p.id}
+				keyMethod={displayPlayerInto}
 				displayMethod={(p) => `${p.id}`}
 			/>
 		</>

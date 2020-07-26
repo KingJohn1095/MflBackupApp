@@ -5,7 +5,7 @@ import arrayMove from "array-move";
 
 interface SortableListProps<T> {
 	onDropCallback?: (result: Drag.DropResult) => void;
-	displayMethod: (item: T) => string;
+	displayMethod: (item: T) => string | React.ReactNode;
 	keyMethod: (item: T) => string | number;
 	items: T[];
 }
